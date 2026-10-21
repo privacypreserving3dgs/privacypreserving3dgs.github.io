@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="PrinGS: Privacy Preservation in Gaussian Splatting"
+    />
+    <meta
+      name="keywords"
+      content="PrinGS, Privacy, Gaussian Splatting, Computer Vision, IIITH"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PrinGS: Privacy Preservation in Gaussian Splatting</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z7EQVDDWVG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-Z7EQVDDWVG');
+    </script>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css" />
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
+    />
+    <link rel="stylesheet" href="./static/css/index.css" />
+    <link rel="icon" href="./static/images/favicon.png" />
+
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+  </head>
+
+  <body>
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              PrinGS: Privacy Preservation in Gaussian Splatting
+            </h1>
+            <h1 class="title is-4 publication-title">ICVGIP 2026</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://gaurav-behera.github.io/"
+                  >Gaurav Behera</a
+                >*,
+              </span>
+              <span class="author-block">
+                <a href="https://abhinav7r.github.io/"
+                  >Abhinav Raundhal</a
+                >*,
+              </span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/archisha-panda"
+                  >Archisha Panda</a
+                >*,
+              </span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/saumya-balina"
+                  >Saumya Balina</a
+                >*,
+              </span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/gargi-shroff-8717b02a6/"
+                  >Gargi Shroff</a
+                >*,
+              </span>
+              <span class="author-block">
+                <a href="https://www.iiit.ac.in/faculty/ponnurangam-kumaraguru/"
+                  >Ponnurangam Kumaraguru</a
+                >
+              </span>
+            </div>
+            
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                IIIT Hyderabad
+              </span>
+              <br />
+            </div>
+
+            <div class="is-size-6 publication-authors">
+              <span class="author-block">
+                *Equal contribution
+              </span>
+              <br />
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a
+                    href="./static/paper/prings.pdf"
+                    class="external-link button is-normal is-rounded is-dark"
+                  >
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a
+                    href="https://arxiv.org/abs/"
+                    class="external-link button is-normal is-rounded is-dark"
+                  >
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a
+                    href="https://github.com/privacypreserving3dgs/PrinGS"
+                    class="external-link button is-normal is-rounded is-dark"
+                  >
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="hero teaser">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img id="teaser" src="./static/images/teaser.png" height="100%" />
+          <h2 class="subtitle has-text-centered">
+          PrinGS anonymizes sensitive content in trained Gaussian Splatting
+          scenes without requiring the original training images, preserving
+          scene quality while protecting privacy across novel viewpoints.
+        </h2>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>
+                3D Gaussian Splatting (3DGS) has rapidly become the preferred
+                representation for high-fidelity novel view synthesis and 3D scene
+                reconstruction. However, the learned representation encodes 
+                sensitive visual information including human faces, license plates,
+                documents, and computer screens, raising significant privacy 
+                concerns when trained splats are shared or deployed. In this work,
+                we address the underexplored problem of privacy preservation in
+                Gaussian Splatting by proposing a representation-level 
+                anonymization framework that directly anonymizes a trained splat. 
+              </p>
+              <p>
+                Given a trained splat and a user-provided reference view identifying 
+                sensitive content, our method localizes the corresponding regions in the
+                underlying 3D representation and directly anonymizes them, 
+                ensuring that the sensitive information is absent from all subsequently
+                rendered novel views while preserving the overall scene geometry
+                and visual fidelity. We achieve this post-training anonymization in
+                less than 1 second. Furthermore, we extend our framework with a
+                privacy-by-design training strategy that prevents sensitive content
+                from being embedded into the representation during optimization,
+                enabling the generation of privacy-preserving splats directly from
+                training images. Our method achieves a substantial reduction of
+                Face Similarity Measure (FSM) by ~74% as compared to 3DGS,
+                while making sensitive text completely unreadable with an OCR
+                Character Error Rate of 1.00. Our work aims to serves as the 
+                primary stepping stone towards privacy-aware 3D representations
+                and motivates further research along these directions.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--/ Abstract. -->
+
+        <!-- Paper video. -->
+        <!-- <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+          <h2 class="title is-3">Video</h2>
+            <div class="publication-video">
+              <iframe src="https://www.youtube.com/embed/lEdourIT6Tw"
+                      frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div> -->
+        <!--/ Paper video. -->
+
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">PrinGS Overview</h2>
+            <div class="content has-text-justified">
+            <ul>
+              <li>
+                <strong>Single-View Segmentation:</strong>
+                Rasterization against 2D segmentation masks identifies potentially
+                sensitive Gaussians, followed by Isolation Forest-based spatial
+                outlier rejection to remove false positives.
+              </li>
+              <li>
+                <strong>Multi-View Aggregation:</strong>
+                Visibility counters accumulate evidence across views, and a
+                threshold selects the final set of sensitive Gaussians.
+              </li>
+              <li>
+                <strong>Localized Volumetric Blur:</strong>
+                A k-nearest-neighbor (k-NN) aggregation process propagates
+                parameter updates through local neighborhoods to blur sensitive
+                regions while preserving the surrounding scene.
+              </li>
+              <li>
+                <strong>Selective Anonymization:</strong>
+                Face anonymization modifies spherical harmonic (SH) coefficients
+                using scale-dependent weights, whereas text anonymization modifies
+                both SH coefficients and Gaussian means using uniform weights.
+                The output is a 3D Gaussian Splatting scene with sensitive
+                information anonymized.
+              </li>
+            </ul>
+            <img
+              src="./static/images/method.png"
+              alt="PrinGS methodology: single-view segmentation, multi-view aggregation, localized volumetric blur, and selective face and text anonymization"
+            />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+
+            <h2 class="title is-3">Operational Settings</h2>
+
+            <div class="columns is-variable is-5">
+
+              <div class="column is-half">
+                <div class="content">
+                  <h3 class="title is-4">
+                    Post-Training Privacy Preservation
+                  </h3>
+                  <p class="has-text-justified">
+                    Anonymizes an existing 3D Gaussian Splat using a reference
+                    camera view and binary mask, without requiring access to the
+                    original training images.
+                  </p>
+                  <figure style="width: 100%; margin: 0;">
+                    <img
+                      src="./static/images/post-training.png"
+                      alt="Post-training privacy preservation pipeline"
+                      style="display: block; width: 100%; max-width: 100%; height: auto;"
+                    />
+                  </figure>
+                </div>
+              </div>
+
+              <div class="column is-half">
+                <div class="content">
+                  <h3 class="title is-4">
+                    Privacy-by-Design
+                  </h3>
+                  <p class="has-text-justified">
+                    Integrates anonymization into 3D Gaussian Splatting training,
+                    using loss masking and periodic updates to protect sensitive
+                    regions as the scene is reconstructed.
+                  </p>
+                  <figure style="width: 100%; margin: 0;">
+                    <img
+                      src="./static/images/privacy-by-design.png"
+                      alt="Privacy-by-design anonymization pipeline"
+                      style="display: block; width: 100%; max-width: 100%; height: auto;"
+                    />
+                  </figure>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Qualitative Results</h2>
+            <div class="columns is-centered">
+              <img
+                src="./static/images/qualitative-results.png"
+                alt="Qualitative Results"
+              />
+            </div>
+              <p>
+              Qualitative results on PrinGS-Humans (rows 1-4) and Tanks and
+              Temples (row 5). Given a single reference view, PrinGS anonymizes
+              sensitive facial and textual information directly in the Gaussian
+              representation, consistently protecting privacy across novel
+              viewpoints while preserving scene geometry and facial contours.
+              Best viewed on screen.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="quantitative-results">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+
+            <h2 class="title is-3">Quantitative Results</h2>
+
+            <div class="columns is-variable is-5 results-layout">
+
+              <div class="column is-5">
+                <div class="content results-metrics">
+                  <h3 class="title is-4">Evaluation Metrics</h3>
+
+                  <p>
+                    <strong>Face Similarity Measure (FSM) ↓:</strong>
+                    Cosine similarity between facial embeddings
+                    of the ground truth and anonymized renders. Lower values
+                    indicate higher degree of anonymization.
+                  </p>
+
+                  <p>
+                    <strong>Face Detection Rate (FDR) ↑:</strong>
+                    Fraction of ground-truth faces that remain
+                    detectable in anonymized renders. Higher values indicate
+                    that facial geometry is preserved, penalizing facial destruction.
+                  </p>
+
+                  <p>
+                    <strong>OCR Character Error Rate (CER) ↑:</strong>
+                    Text readability using character-level
+                    edit distance between recognized and ground-truth text.
+                    Higher values indicate stronger text anonymization.
+                  </p>
+                </div>
+              </div>
+
+              <div class="column is-7">
+                <div class="content results-tables">
+
+                  <h3 class="title is-4">Face Anonymization</h3>
+
+                  <div class="results-table-wrapper">
+                    <table class="results-table face-results">
+                      <thead>
+                        <tr>
+                          <th rowspan="2">Scene</th>
+                          <th colspan="2">3DGS</th>
+                          <th colspan="2">Ours</th>
+                        </tr>
+                        <tr>
+                          <th>FDR ↑</th>
+                          <th>FSM ↓</th>
+                          <th>FDR ↑</th>
+                          <th>FSM ↓</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>House</td>
+                          <td>91.67</td>
+                          <td>78.68</td>
+                          <td>36.11</td>
+                          <td>6.55</td>
+                        </tr>
+                        <tr>
+                          <td>Hospital</td>
+                          <td>97.50</td>
+                          <td>88.55</td>
+                          <td>42.50</td>
+                          <td>12.70</td>
+                        </tr>
+                        <tr class="results-overall">
+                          <td>Overall</td>
+                          <td>94.74</td>
+                          <td>83.87</td>
+                          <td><strong>39.47</strong></td>
+                          <td><strong>9.79</strong></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <h3 class="title is-4 ocr-table-title">
+                    Text Anonymization
+                  </h3>
+
+                  <div class="results-table-wrapper">
+                    <table class="results-table ocr-results">
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Truck</th>
+                          <th>Barn</th>
+                          <th>M60</th>
+                          <th>Piano</th>
+                          <th>Car</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>3DGS</td>
+                          <td>0.500</td>
+                          <td>0.028</td>
+                          <td>0.207</td>
+                          <td>0.149</td>
+                          <td>0.158</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Ours</strong></td>
+                          <td><strong>1.00</strong></td>
+                          <td><strong>1.00</strong></td>
+                          <td><strong>1.00</strong></td>
+                          <td><strong>1.00</strong></td>
+                          <td><strong>1.00</strong></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-3">Poster</h2>
+            <div style="text-align: center">
+              <div class="pdf-viewer">
+                <iframe src="static/paper/prings_poster.pdf" width="100%" height="500px"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title is-5">Acknowledgements</h2>
+            <p class="has-text-justified">
+              
+            </p>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>@InProceedings{PrivacyPreserving3DGS_2026_ICVGIP,
+  author    = {Behera, Gaurav and Raundhal, Abhinav and Panda, Archisha and Balina, Saumya and Shroff, Gargi and Kumaraguru, Ponnurangam},
+  title     = {PrinGS: Privacy Preservation in Gaussian Splatting},
+  booktitle = {Indian Conference on Computer Vision, Graphics, and Image Processing (ICVGIP 2026)},
+  year      = {2026},
+}</code></pre>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <a class="icon-link" href="./static/paper/prings.pdf">
+            <i class="fas fa-file-pdf"></i>
+          </a>
+          <a
+            class="icon-link"
+            href="https://github.com/privacypreserving3dgs"
+            class="external-link"
+            disabled
+          >
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content">
+              <p>
+                This website was adapted from
+                <a href="https://github.com/nerfies/nerfies.github.io"
+                  >Nerfies</a
+                >
+                and is licensed under a
+                <a
+                  rel="license"
+                  href="http://creativecommons.org/licenses/by-sa/4.0/"
+                  >Creative Commons Attribution-ShareAlike 4.0 International
+                  License</a
+                >.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
